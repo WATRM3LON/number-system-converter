@@ -1,11 +1,11 @@
-# Activity No. 1: System Development Activity
+﻿# Activity No. 1: System Development Activity
 ## Number System Converter and Arithmetic Calculator System
 
 A comprehensive, interactive web application and documentation system built for **System Development Activity No. 1**. This application performs multi-base number system conversions (Binary, Octal, Decimal, Hexadecimal) and evaluates multi-input arithmetic operations with step-by-step mathematical breakdowns.
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 1. **Dynamic Multi-Base Input Workbench**
    - Supports 3 or more dynamic input fields (Add/Remove inputs dynamically).
@@ -35,32 +35,52 @@ A comprehensive, interactive web application and documentation system built for 
      - `Octal + Decimal + Hexadecimal`
      - `Binary + Octal + Hexadecimal`
      - Covers Addition, Subtraction, Multiplication, and Division scenarios.
-   - **Export / Print Feature**: Generate printable PDF-friendly activity submission reports.
 
 ---
 
-## 🛠 System Requirements
+#### Runtime & Technologies
 
-### Software & Environment
-- **Browser**: Modern web browser (Google Chrome, Mozilla Firefox, Microsoft Edge, Safari).
-- **Technologies Used**: HTML5, Vanilla CSS3 (Custom CSS Variables, Glassmorphism, Responsive Grid), JavaScript (ES6+ Modules, Floating-point Radix Algorithms).
-- **Dependencies**: None (100% self-contained standard web stack).
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| **HTML5** | — | Application markup and structure |
+| **CSS3** | — | Glassmorphic dark-theme styling, CSS Variables, Responsive Grid |
+| **JavaScript** | — | Conversion algorithms, expression engine, dynamic UI |
+| **Font Awesome** | — | UI icons (loaded via CDN) |
 
 ---
 
-## 🚀 How to Run
+### Functional Requirements
 
-1. Open the project folder:
+| ID | Requirement | Description | Status |
+|----|------------|-------------|--------|
+| FR-01 | Dynamic Input Control | Accept at least 3 input numbers with the ability to add or remove inputs dynamically. | ✅ Implemented |
+| FR-02 | Multi-Base Selection | Allow independent base selection per input: Binary, Octal, Decimal, Hexadecimal. | ✅ Implemented |
+| FR-03 | Input Validation | Validate digits of each input against its selected base (e.g., reject digits `8`/`9` in Octal). | ✅ Implemented |
+| FR-04 | Individual Conversions | Convert each input number to all 4 bases (Binary, Octal, Decimal, Hexadecimal). | ✅ Implemented |
+| FR-05 | Mixed-Base Arithmetic | Perform `+`, `-`, `*`, `/` operations across inputs of different number bases. | ✅ Implemented |
+| FR-06 | Common Representation | Normalize all inputs to Base-10 (Decimal) before executing arithmetic. | ✅ Implemented |
+| FR-07 | Expression Display | Render the arithmetic expression with original symbols and base subscript notation. | ✅ Implemented |
+| FR-08 | Multi-Base Results | Output the final result in Binary, Octal, Decimal, and Hexadecimal. | ✅ Implemented |
+| FR-09 | Parenthesized Expressions | Support arbitrary expressions with mixed operators and parentheses, e.g. `(A + B - C) * D`. | ✅ Implemented |
+| FR-10 | Operator Precedence | Enforce PEMDAS/BODMAS: `*` and `/` evaluated before `+` and `-`, with left-to-right associativity. | ✅ Implemented |
+| FR-11 | Error Trapping | Detect and report: division by zero, mismatched parentheses, illegal operator combinations, and undefined variables. | ✅ Implemented |
+
+---
+
+
+##  How to Run
+
+1. Clone or download the project folder:
    ```
-   C:\Users\macatual\.gemini\antigravity-ide\scratch\number-system-converter
+   C:\Users\<YourUsername>\Documents\PROJECTS\number-system-converter
    ```
-2. Double click `index.html` or open it directly in any modern browser.
+2. Double-click `index.html` or open it directly in any modern browser.
 3. Use the **Converter & Calculator** tab to enter custom values, change bases, and select arithmetic operations.
 4. Click **Test Cases & Presets** to run pre-configured test scenarios for your activity report.
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 number-system-converter/
@@ -72,7 +92,7 @@ number-system-converter/
 
 ---
 
-## 📝 Academic Activity Specifications Checklist
+##  Academic Activity Specifications Checklist
 
 - [x] Accept at least 3 dynamic input numbers.
 - [x] Allow base selection for each input (Binary, Octal, Decimal, Hexadecimal).

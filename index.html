@@ -1,160 +1,251 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Activity No.1 - Number System Converter and Arithmetic Calculator</title>
-  <meta name="description" content="System Development Activity: Number System Converter and Arithmetic Calculator with multi-base support, dynamic inputs, step-by-step breakdown, and academic documentation.">
+  <title>Activity No.1 - DSP</title>
+  <meta name="description"
+    content="System Development Activity: Number System Converter and Arithmetic Calculator with multi-base support, dynamic inputs, step-by-step breakdown, and academic documentation.">
   <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <div class="container">
-    
-    <!-- Application Header -->
-    <header class="app-header">
-      <div class="badge-top">
-        <i class="fa-solid fa-microchip"></i> Activity No.1: System Development
-      </div>
-      <h1 class="app-title">Number System Converter & Calculator</h1>
-      <p class="app-subtitle">
-        Perform arbitrary-length multi-base conversions (Binary, Octal, Decimal, Hexadecimal) and step-by-step mixed-base arithmetic operations with complete academic documentation.
-      </p>
-    </header>
+  <!-- Outer Tablet Device Container -->
+  <div class="tablet-container">
+    <div class="tablet-screen">
 
-    <!-- Navigation Tabs -->
-    <div class="nav-tabs-wrapper">
-      <div class="nav-tabs" role="tablist">
-        <button class="tab-btn active" data-tab="tab-calculator">
-          <i class="fa-solid fa-calculator"></i> Converter & Calculator
-        </button>
-        <button class="tab-btn" data-tab="tab-requirements">
-          <i class="fa-solid fa-list-check"></i> Requirements
-        </button>
-        <button class="tab-btn" data-tab="tab-algorithms">
-          <i class="fa-solid fa-code"></i> Algorithms
-        </button>
-        <button class="tab-btn" data-tab="tab-flowchart">
-          <i class="fa-solid fa-diagram-project"></i> Flowchart
-        </button>
-        <button class="tab-btn" data-tab="tab-implementation">
-          <i class="fa-solid fa-cubes"></i> Implementation
-        </button>
-        <button class="tab-btn" data-tab="tab-presets">
-          <i class="fa-solid fa-vial"></i> Test Cases & Presets
-        </button>
-      </div>
-    </div>
-
-    <!-- TAB 1: WORKBENCH (CONVERTER & CALCULATOR) -->
-    <div id="tab-calculator" class="tab-panel active">
-      
-      <!-- Input Panel Card -->
-      <div class="glass-card">
-        <div class="card-header">
-          <h2 class="card-title">
-            <i class="fa-solid fa-sliders"></i> Input Values & Bases
-          </h2>
-          <div style="display: flex; gap: 0.75rem;">
-            <button id="btn-add-input" class="btn btn-secondary btn-sm">
-              <i class="fa-solid fa-plus"></i> Add Input
-            </button>
-            <button id="btn-reset-inputs" class="btn btn-danger btn-sm">
-              <i class="fa-solid fa-rotate-left"></i> Reset
-            </button>
+      <!-- 1. TOP NAVIGATION BAR (Matching Image Cutout & Pill Tabs) -->
+      <header class="top-nav-bar">
+        <div class="brand-wrapper">
+          <button class="btn-circle-action" id="btn-top-calc-icon" title="Calculator">
+            <i class="fa-solid fa-calculator"></i>
+          </button>
+          <div class="header-title-badge">
+            <h1 class="main-title">Number Systems</h1>
           </div>
         </div>
 
-        <p class="doc-p" style="margin-bottom: 1.25rem;">
-          Specify 3 or more input numbers. Set the base for each input individually. Supports integer & fractional values (e.g. <code>1010.1</code>, <code>3A.F</code>).
-        </p>
+        <!-- Pill Navigation List -->
+        <nav class="nav-pills" role="tablist">
+          <button class="tab-btn active" data-tab="tab-calculator">
+            <i class="fa-solid fa-sliders"></i> Converter & Calculator
+          </button>
+          <button class="tab-btn" data-tab="tab-presets">
+            <i class="fa-solid fa-vial"></i> Test Cases & Presets
+          </button>
+        </nav>
+      </header>
 
-        <!-- Dynamic Input Rows Container -->
-        <div id="inputs-container" class="inputs-container">
-          <!-- Dynamically populated via script.js -->
+      <!-- 3. TIMELINE & WORKFLOW TRACK BAR (Matching Yellow Circular Nodes in Image) -->
+      <div class="timeline-track-bar">
+        <div class="timeline-track-line"></div>
+        <div class="timeline-nodes">
+          <div class="timeline-node">
+            <div class="node-icon-circle"><i class="fa-solid fa-list-ol"></i></div>
+            <div class="node-label-group">
+              <span class="node-title">Step 1: Input Specification</span>
+              <span class="node-desc">Validate digits per radix</span>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="node-icon-circle"><i class="fa-solid fa-calculator"></i></div>
+            <div class="node-label-group">
+              <span class="node-title">Step 2: Base-10 Normalization</span>
+              <span class="node-desc">Unified evaluation pipeline</span>
+            </div>
+          </div>
+          <div class="timeline-node">
+            <div class="node-icon-circle"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="node-label-group">
+              <span class="node-title">Step 3: Multi-Base Expansion</span>
+              <span class="node-desc">Radix 2, 8, 10, 16 conversion</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <!-- Arithmetic Operation Selector -->
-        <div class="operation-bar">
-          <div class="op-group">
-            <span class="op-title"><i class="fa-solid fa-calculator"></i> Select Operation:</span>
-            <div class="op-selectors">
-              <button class="op-btn active" data-op="+">+</button>
-              <button class="op-btn" data-op="-">−</button>
-              <button class="op-btn" data-op="*">×</button>
-              <button class="op-btn" data-op="/">÷</button>
+      <!-- ==========================================================================
+           TAB 1: WORKBENCH (CONVERTER & CALCULATOR)
+           ========================================================================== -->
+      <div id="tab-calculator" class="tab-panel active">
+
+        <!-- Input Configuration Card -->
+        <div class="white-card">
+          <div class="card-top-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge"><i class="fa-solid fa-sliders"></i></div>
+              <h2 class="card-title">Dynamic Input Values & Number Systems</h2>
+            </div>
+            <div style="display: flex; gap: 0.6rem;">
+              <button id="btn-add-input" class="btn btn-secondary btn-sm">
+                <i class="fa-solid fa-plus"></i> Add Input
+              </button>
+              <button id="btn-reset-inputs" class="btn btn-danger btn-sm">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+              </button>
             </div>
           </div>
 
-          <button id="btn-calculate" class="btn btn-primary">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> Calculate & Convert
-          </button>
-        </div>
-      </div>
+          <p class="card-helper">
+            Configure 3 or more input numbers. Select the target base for each input individually. Full support for
+            integer and floating-point fractional digits (e.g. <code>1010.1</code>, <code>17.4</code>,
+            <code>3A.F</code>).
+          </p>
 
-      <!-- Results & Conversions Container -->
-      <div id="results-wrapper">
-        
-        <!-- Arithmetic Expression Banner -->
-        <div class="expression-banner">
-          <div class="expression-title">Formatted Arithmetic Expression</div>
-          <div id="expression-display" class="expression-text">
-            1010₂ + 17₈ + 15₁₀
+          <!-- Dynamic Input Rows Container -->
+          <div id="inputs-container" class="inputs-container">
+            <!-- Populated via script.js -->
           </div>
         </div>
 
-        <!-- Arithmetic Final Output Cards -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <i class="fa-solid fa-equals"></i> Final Arithmetic Result
-            </h2>
+        <!-- Expression & Precedence Workbench -->
+        <div class="expression-builder-panel">
+          <div class="card-top-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge"><i class="fa-solid fa-square-root-variable"></i></div>
+              <h2 class="card-title">Arithmetic Expression & Precedence Workbench</h2>
+            </div>
+            <span class="base-tag" style="background:#f3f1ec; color:var(--text-main); font-weight:700;">PEMDAS /
+              BODMAS</span>
+          </div>
+
+          <p class="card-helper">
+            Construct mixed-operator expressions with parentheses (e.g. <code>(A + B - C) * D</code>). The engine
+            strictly respects standard operator precedence (<code>*</code>, <code>/</code> before <code>+</code>,
+            <code>-</code>) and left-to-right associativity with full arithmetic error trapping.
+          </p>
+
+          <!-- Error Alert Banner -->
+          <div id="expression-error-banner" class="error-alert-banner">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <div class="error-alert-content">
+              <span class="error-alert-title">Arithmetic / Syntax Error Encountered</span>
+              <span id="expression-error-msg" class="error-alert-desc"></span>
+            </div>
+          </div>
+
+          <!-- Formula Bar -->
+          <div class="formula-bar-container">
+            <div class="formula-input-wrapper">
+              <input type="text" id="custom-expression-input" class="formula-input" value="(A + B - C) * D"
+                placeholder="e.g. (A + B - C) * D" autocomplete="off" spellcheck="false">
+            </div>
+            <button id="btn-calculate" class="btn btn-primary">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Evaluate Expression
+            </button>
+          </div>
+
+          <!-- Formula Keypad -->
+          <div class="keypad-container">
+            <div class="keypad-group" id="keypad-vars">
+              <span class="keypad-label">Variables:</span>
+              <!-- Dynamically populated per inputs -->
+            </div>
+
+            <div class="keypad-group">
+              <span class="keypad-label">Parentheses:</span>
+              <button class="key-btn key-paren" data-token="(">(</button>
+              <button class="key-btn key-paren" data-token=")">)</button>
+            </div>
+
+            <div class="keypad-group">
+              <span class="keypad-label">Operators:</span>
+              <button class="key-btn key-op" data-token="+">+</button>
+              <button class="key-btn key-op" data-token="-">âˆ’</button>
+              <button class="key-btn key-op" data-token="*">Ã—</button>
+              <button class="key-btn key-op" data-token="/">Ã·</button>
+            </div>
+
+            <div class="keypad-group">
+              <button class="key-btn key-action" id="btn-expr-backspace" title="Backspace"><i
+                  class="fa-solid fa-delete-left"></i></button>
+              <button class="key-btn key-action" id="btn-expr-clear" title="Clear Formula">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formatted Expression Banner -->
+        <div class="expression-banner">
+          <div class="expression-title">Formatted Arithmetic Expression</div>
+          <div id="expression-display" class="expression-text">
+            (1010â‚‚ + 17â‚ˆ âˆ’ 5â‚â‚€) Ã— 2â‚â‚†
+          </div>
+        </div>
+
+        <!-- Final Arithmetic Result (Styled like Blood Pressure & ECG cards in image) -->
+        <div class="white-card">
+          <div class="card-top-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge"><i class="fa-solid fa-equals"></i></div>
+              <h2 class="card-title">Final Arithmetic Evaluation</h2>
+            </div>
             <span class="base-tag" id="arithmetic-decimal-badge">Common Decimal = 37</span>
           </div>
 
           <div class="output-grid">
-            <div class="base-card bin">
+
+            <!-- Binary Card -->
+            <div class="base-card">
               <div class="base-header">
                 <span class="base-name">Binary</span>
-                <span class="base-tag">Base 2</span>
+                <div class="base-header-right">
+                  <span class="base-tag">Base 2</span>
+                  <div class="base-icon-circle"><i class="fa-solid fa-scale-balanced"></i></div>
+                </div>
               </div>
               <div id="res-bin" class="base-value">100101</div>
             </div>
 
-            <div class="base-card oct">
+            <!-- Octal Card -->
+            <div class="base-card">
               <div class="base-header">
                 <span class="base-name">Octal</span>
-                <span class="base-tag">Base 8</span>
+                <div class="base-header-right">
+                  <span class="base-tag">Base 8</span>
+                  <div class="base-icon-circle"><i class="fa-solid fa-scale-balanced"></i></div>
+                </div>
               </div>
               <div id="res-oct" class="base-value">45</div>
             </div>
 
-            <div class="base-card dec">
+            <!-- Decimal Card -->
+            <div class="base-card">
               <div class="base-header">
                 <span class="base-name">Decimal</span>
-                <span class="base-tag">Base 10</span>
+                <div class="base-header-right">
+                  <span class="base-tag">Base 10</span>
+                  <div class="base-icon-circle"><i class="fa-solid fa-scale-balanced"></i></div>
+                </div>
               </div>
               <div id="res-dec" class="base-value">37</div>
             </div>
 
-            <div class="base-card hex">
+            <!-- Hexadecimal Card -->
+            <div class="base-card">
               <div class="base-header">
                 <span class="base-name">Hexadecimal</span>
-                <span class="base-tag">Base 16</span>
+                <div class="base-header-right">
+                  <span class="base-tag">Base 16</span>
+                  <div class="base-icon-circle"><i class="fa-solid fa-scale-balanced"></i></div>
+                </div>
               </div>
               <div id="res-hex" class="base-value">25</div>
             </div>
+
           </div>
         </div>
 
         <!-- Individual Conversion Matrix Table -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <i class="fa-solid fa-table"></i> Individual Input Conversions
-            </h2>
+        <div class="white-card">
+          <div class="card-top-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge"><i class="fa-solid fa-table"></i></div>
+              <h2 class="card-title">Individual Input Conversions</h2>
+            </div>
           </div>
 
           <div class="table-responsive">
@@ -177,11 +268,12 @@
         </div>
 
         <!-- Step-by-Step Calculation Breakdown -->
-        <div class="glass-card">
-          <div class="card-header">
-            <h2 class="card-title">
-              <i class="fa-solid fa-list-ol"></i> Step-by-Step Calculation Breakdown
-            </h2>
+        <div class="white-card">
+          <div class="card-top-header">
+            <div class="card-title-group">
+              <div class="card-icon-badge"><i class="fa-solid fa-list-ol"></i></div>
+              <h2 class="card-title">Step-by-Step Calculation Breakdown</h2>
+            </div>
           </div>
 
           <div id="steps-breakdown" class="step-container">
@@ -190,400 +282,557 @@
         </div>
 
       </div>
-    </div>
 
-    <!-- TAB 2: SYSTEM REQUIREMENTS -->
-    <div id="tab-requirements" class="tab-panel">
-      <div class="glass-card">
-        <div class="doc-section">
-          <h2 class="doc-h2">1. System Specifications & Requirements</h2>
-          <p class="doc-p">
-            This system development activity fulfills all specified functional and non-functional requirements for multi-base conversion and mixed-base arithmetic evaluation.
-          </p>
+      <!-- ==========================================================================
+           TAB 2: SYSTEM REQUIREMENTS
+           ========================================================================== -->
+      <div id="tab-requirements" class="tab-panel">
+        <div class="white-card">
+          <div class="doc-section">
+            <h2 class="doc-h2">1. System Specifications & Requirements</h2>
+            <p class="doc-p">
+              This system development activity fulfills all specified functional and non-functional requirements for
+              multi-base conversion and mixed-base arithmetic evaluation.
+            </p>
 
-          <h3 class="doc-h3">Functional Requirements</h3>
-          <div class="table-responsive">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Requirement Name</th>
-                  <th>Description</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>FR-01</td>
-                  <td>Dynamic Input Control</td>
-                  <td>Accept at least 3 input numbers, with user ability to dynamically add or remove inputs.</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-                <tr>
-                  <td>FR-02</td>
-                  <td>Multi-Base Selection</td>
-                  <td>Allow independent selection of base for each input (Binary, Octal, Decimal, Hexadecimal).</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-                <tr>
-                  <td>FR-03</td>
-                  <td>Input Validation</td>
-                  <td>Validate digits of each input string against its selected base (e.g. reject 8/9 in octal).</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-                <tr>
-                  <td>FR-04</td>
-                  <td>Individual Conversions</td>
-                  <td>Convert each individual input to Binary, Octal, Decimal, and Hexadecimal.</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-                <tr>
-                  <td>FR-05</td>
-                  <td>Mixed-Base Arithmetic</td>
-                  <td>Perform Addition (+), Subtraction (-), Multiplication (*), or Division (/) across mixed bases.</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-                <tr>
-                  <td>FR-06</td>
-                  <td>Common Representation</td>
-                  <td>Normalize all input values to Base-10 (Decimal) prior to executing arithmetic operations.</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-                <tr>
-                  <td>FR-07</td>
-                  <td>Expression Display</td>
-                  <td>Format and render the arithmetic expression with original symbols and base subscript labels.</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-                <tr>
-                  <td>FR-08</td>
-                  <td>Multi-Base Results</td>
-                  <td>Output the final calculation result in Binary, Octal, Decimal, and Hexadecimal.</td>
-                  <td><span class="base-tag" style="color: var(--accent-emerald);">Implemented</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <h3 class="doc-h3">Functional Requirements</h3>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Requirement Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>FR-01</td>
+                    <td>Dynamic Input Control</td>
+                    <td>Accept at least 3 input numbers, with user ability to dynamically add or remove inputs.</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-02</td>
+                    <td>Multi-Base Selection</td>
+                    <td>Allow independent selection of base for each input (Binary, Octal, Decimal, Hexadecimal).</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-03</td>
+                    <td>Input Validation</td>
+                    <td>Validate digits of each input string against its selected base (e.g. reject 8/9 in octal).</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-04</td>
+                    <td>Individual Conversions</td>
+                    <td>Convert each individual input to Binary, Octal, Decimal, and Hexadecimal.</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-05</td>
+                    <td>Mixed-Base Arithmetic</td>
+                    <td>Perform Addition (+), Subtraction (-), Multiplication (*), or Division (/) across mixed bases.
+                    </td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-06</td>
+                    <td>Common Representation</td>
+                    <td>Normalize all input values to Base-10 (Decimal) prior to executing arithmetic operations.</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-07</td>
+                    <td>Expression Display</td>
+                    <td>Format and render the arithmetic expression with original symbols and base subscript labels.
+                    </td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-08</td>
+                    <td>Multi-Base Results</td>
+                    <td>Output the final calculation result in Binary, Octal, Decimal, and Hexadecimal.</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-09</td>
+                    <td>Parenthesized Complex Expressions</td>
+                    <td>Support arbitrary expressions with multiple mixed operators and parentheses, e.g. (A + B - C) *
+                      D.</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-10</td>
+                    <td>Operator Precedence & Associativity</td>
+                    <td>Enforce PEMDAS/BODMAS rules (* and / before + and -) and left-to-right associativity for equal
+                      operators.</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                  <tr>
+                    <td>FR-11</td>
+                    <td>Arithmetic & Syntax Error Trapping</td>
+                    <td>Detect and report runtime division by zero, mismatched parentheses, illegal operator
+                      combinations, and undefined variables.</td>
+                    <td><span class="base-tag"
+                        style="background:#dcfce7; color:#15803d; font-weight:700;">Implemented</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="doc-h3">Non-Functional Requirements</h3>
+            <p class="doc-p">
+              â€¢ <strong>Usability:</strong> Light modern dashboard interface with clear step-by-step traces.<br>
+              â€¢ <strong>Accuracy:</strong> Floating-point radix expansion supporting up to 8 decimal digits of
+              fraction
+              precision.<br>
+              â€¢ <strong>Error Handling:</strong> Explicit warning alerts for illegal characters and division by zero.
+            </p>
           </div>
-
-          <h3 class="doc-h3">Non-Functional Requirements</h3>
-          <p class="doc-p">
-            • <strong>Usability:</strong> Responsive, modern glassmorphic interface with clear step-by-step traces.<br>
-            • <strong>Accuracy:</strong> Floating-point radix expansion supporting up to 10 decimal digits of fraction precision.<br>
-            • <strong>Error Handling:</strong> Explicit warning alerts for illegal characters and division by zero.
-          </p>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 3: ALGORITHM & PSEUDOCODE -->
-    <div id="tab-algorithms" class="tab-panel">
-      <div class="glass-card">
-        <div class="doc-section">
-          <h2 class="doc-h2">2. System Algorithms & Pseudocode</h2>
+      <!-- ==========================================================================
+           TAB 3: ALGORITHMS & PSEUDOCODE
+           ========================================================================== -->
+      <div id="tab-algorithms" class="tab-panel">
+        <div class="white-card">
+          <div class="doc-section">
+            <h2 class="doc-h2">2. System Algorithms & Pseudocode</h2>
 
-          <h3 class="doc-h3">Algorithm 1: Base Input Digit Validation</h3>
-          <div class="code-block">
-FUNCTION ValidateInput(numberStr, base):
-    IF numberStr IS EMPTY: RETURN False, "Input cannot be empty"
-    
-    SET validChars = GET_ALLOWED_DIGITS(base)  // e.g. Base 2 -> [0,1], Base 8 -> [0-7]
-    SET parts = SPLIT(numberStr, '.')
-    
-    IF LENGTH(parts) > 2: RETURN False, "Multiple radix points detected"
-    
-    FOR EACH char IN numberStr:
-        IF char != '.' AND char NOT IN validChars:
-            RETURN False, "Invalid digit '" + char + "' for Base " + base
+            <h3 class="doc-h3">Algorithm 1: Base Input Digit Validation</h3>
+            <div class="code-block">
+              FUNCTION ValidateInput(numberStr, base):
+              IF numberStr IS EMPTY: RETURN False, "Input cannot be empty"
+
+              SET validChars = GET_ALLOWED_DIGITS(base) // e.g. Base 2 -> [0,1], Base 8 -> [0-7]
+              SET parts = SPLIT(numberStr, '.')
+
+              IF LENGTH(parts) > 2: RETURN False, "Multiple radix points detected"
+
+              FOR EACH char IN numberStr:
+              IF char != '.' AND char NOT IN validChars:
+              RETURN False, "Invalid digit '" + char + "' for Base " + base
+
+              RETURN True, "Valid"
+              END FUNCTION
+            </div>
+
+            <h3 class="doc-h3">Algorithm 2: Any Base to Base-10 Decimal Conversion (Integer + Fraction)</h3>
+            <div class="code-block">
+              FUNCTION ConvertToBase10(numberStr, sourceBase):
+              SET [intPart, fracPart] = SPLIT(numberStr, '.')
+              SET decimalVal = 0
+
+              // Integer Part Positional Expansion: sum(digit * base^i)
+              SET len = LENGTH(intPart)
+              FOR i FROM 0 TO len - 1:
+              SET digit = DIGIT_VALUE(intPart[len - 1 - i])
+              decimalVal = decimalVal + (digit * (sourceBase ^ i))
+
+              // Fractional Part Radix Expansion: sum(digit * base^-j)
+              IF fracPart EXISTS:
+              FOR j FROM 1 TO LENGTH(fracPart):
+              SET digit = DIGIT_VALUE(fracPart[j - 1])
+              decimalVal = decimalVal + (digit * (sourceBase ^ -j))
+
+              RETURN decimalVal
+              END FUNCTION
+            </div>
+
+            <h3 class="doc-h3">Algorithm 3: Decimal to Target Base Conversion</h3>
+            <div class="code-block">
+              FUNCTION ConvertFromDecimal(decimalValue, targetBase, maxFracDigits = 8):
+              SET intPart = FLOOR(decimalValue)
+              SET fracPart = decimalValue - intPart
+
+              // Convert Integer via Repeated Division
+              SET intResult = ""
+              WHILE intPart > 0:
+              SET rem = intPart MOD targetBase
+              intResult = GET_DIGIT_CHAR(rem) + intResult
+              intPart = FLOOR(intPart / targetBase)
+              IF intResult IS EMPTY: intResult = "0"
+
+              // Convert Fraction via Repeated Multiplication
+              IF fracPart == 0: RETURN intResult
+
+              SET fracResult = "."
+              SET count = 0
+              WHILE fracPart > 0 AND count < maxFracDigits: fracPart=fracPart * targetBase SET digit=FLOOR(fracPart)
+                fracResult=fracResult + GET_DIGIT_CHAR(digit) fracPart=fracPart - digit count=count + 1 RETURN intResult
+                + fracResult END FUNCTION </div>
+
+                <h3 class="doc-h3">Algorithm 4: Shunting-Yard Infix to Postfix (RPN) Expression Parser</h3>
+                <div class="code-block">
+                  FUNCTION ShuntingYardParser(expressionStr, validVariables):
+                  SET tokens = TOKENIZE(expressionStr)
+                  SET outputQueue = []
+                  SET operatorStack = []
+
+                  FOR EACH token IN tokens:
+                  IF token IS NUMBER OR token IN validVariables:
+                  ENQUEUE(outputQueue, token)
+                  ELSE IF token IS OPERATOR (op1):
+                  WHILE operatorStack HAS OPERATOR (op2) AND op2 != '(' AND
+                  (PREF(op1) <= PREF(op2) AND ASSOC(op1)=='L' ): ENQUEUE(outputQueue, POP(operatorStack))
+                    PUSH(operatorStack, op1) ELSE IF token=='(' : PUSH(operatorStack, '(' ) ELSE IF token==')' : WHILE
+                    TOP(operatorStack) !='(' : IF operatorStack IS EMPTY: ERROR("Mismatched parentheses: unexpected ')'")
+                ENQUEUE(outputQueue, POP(operatorStack))
+            POP(operatorStack) // Discard matching '('
             
-    RETURN True, "Valid"
-END FUNCTION
-          </div>
-
-          <h3 class="doc-h3">Algorithm 2: Any Base to Base-10 Decimal Conversion (Integer + Fraction)</h3>
-          <div class="code-block">
-FUNCTION ConvertToBase10(numberStr, sourceBase):
-    SET [intPart, fracPart] = SPLIT(numberStr, '.')
-    SET decimalVal = 0
-    
-    // Integer Part Positional Expansion: sum(digit * base^i)
-    SET len = LENGTH(intPart)
-    FOR i FROM 0 TO len - 1:
-        SET digit = DIGIT_VALUE(intPart[len - 1 - i])
-        decimalVal = decimalVal + (digit * (sourceBase ^ i))
+    WHILE operatorStack IS NOT EMPTY:
+        IF TOP(operatorStack) == '(': ERROR(" Mismatched parentheses: missing ')'")
+        ENQUEUE(outputQueue, POP(operatorStack))
         
-    // Fractional Part Radix Expansion: sum(digit * base^-j)
-    IF fracPart EXISTS:
-        FOR j FROM 1 TO LENGTH(fracPart):
-            SET digit = DIGIT_VALUE(fracPart[j - 1])
-            decimalVal = decimalVal + (digit * (sourceBase ^ -j))
-            
-    RETURN decimalVal
+    RETURN outputQueue
 END FUNCTION
-          </div>
+            </div>
 
-          <h3 class="doc-h3">Algorithm 3: Decimal to Target Base Conversion</h3>
-          <div class="code-block">
-FUNCTION ConvertFromDecimal(decimalValue, targetBase, maxFracDigits = 8):
-    SET intPart = FLOOR(decimalValue)
-    SET fracPart = decimalValue - intPart
-    
-    // Convert Integer via Repeated Division
-    SET intResult = ""
-    WHILE intPart > 0:
-        SET rem = intPart MOD targetBase
-        intResult = GET_DIGIT_CHAR(rem) + intResult
-        intPart = FLOOR(intPart / targetBase)
-    IF intResult IS EMPTY: intResult = "0"
-    
-    // Convert Fraction via Repeated Multiplication
-    IF fracPart == 0: RETURN intResult
-    
-    SET fracResult = "."
-    SET count = 0
-    WHILE fracPart > 0 AND count < maxFracDigits:
-        fracPart = fracPart * targetBase
-        SET digit = FLOOR(fracPart)
-        fracResult = fracResult + GET_DIGIT_CHAR(digit)
-        fracPart = fracPart - digit
-        count = count + 1
-        
-    RETURN intResult + fracResult
-END FUNCTION
+            <h3 class=" doc-h3">Algorithm 5: Postfix RPN Evaluator with Arithmetic Error Trapping</h3>
+                    <div class="code-block">
+                      FUNCTION EvaluateRPN(rpnQueue, variableValues):
+                      SET evalStack = []
+
+                      FOR EACH token IN rpnQueue:
+                      IF token IN variableValues:
+                      PUSH(evalStack, variableValues[token].decimalValue)
+                      ELSE IF token IS NUMBER:
+                      PUSH(evalStack, PARSE_FLOAT(token))
+                      ELSE IF token IS OPERATOR (op):
+                      IF LENGTH(evalStack) < 2: ERROR("Syntax error: missing operands") SET b=POP(evalStack) SET
+                        a=POP(evalStack) // Arithmetic Error Handling: Division by Zero IF op=='/' AND ABS(b) < 1e-12:
+                        ERROR("Arithmetic Error: Division by zero encountered (" + a + " / " + b + ")" ) SET
+                        result=COMPUTE_OP(op, a, b) PUSH(evalStack, result) IF LENGTH(evalStack) !=1: ERROR("Syntax
+                        error: invalid expression") RETURN POP(evalStack) END FUNCTION </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================================================
+           TAB 4: SYSTEM FLOWCHART (Restyled for Light Theme)
+           ========================================================================== -->
+            <div id="tab-flowchart" class="tab-panel">
+              <div class="white-card">
+                <div class="doc-section">
+                  <h2 class="doc-h2">3. System Flowchart Diagram</h2>
+                  <p class="doc-p">
+                    High-level control flow diagram of the Number System Converter and Calculator pipeline:
+                  </p>
+
+                  <div class="flowchart-wrapper">
+                    <svg class="flowchart-svg" width="700" height="780" viewBox="0 0 700 780"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6"
+                          orient="auto-start-reverse">
+                          <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b" />
+                        </marker>
+                      </defs>
+
+                      <!-- START -->
+                      <rect x="250" y="20" width="200" height="45" rx="22.5" fill="#1e2124" />
+                      <text x="350" y="48" fill="#ffffff" font-family="Outfit" font-size="16" font-weight="700"
+                        text-anchor="middle">START</text>
+                      <line x1="350" y1="65" x2="350" y2="105" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+
+                      <!-- INPUT -->
+                      <polygon points="210,110 490,110 450,160 170,160" fill="#ffffff" stroke="#1e2124"
+                        stroke-width="2" />
+                      <text x="330" y="140" fill="#181b1e" font-family="Plus Jakarta Sans" font-size="14"
+                        font-weight="600" text-anchor="middle">User Specifies N Inputs & Bases</text>
+                      <line x1="330" y1="160" x2="330" y2="200" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+
+                      <!-- VALIDATION DECISION -->
+                      <polygon points="330,200 460,250 330,300 200,250" fill="#fef9c3" stroke="#ca8a04"
+                        stroke-width="2" />
+                      <text x="330" y="255" fill="#181b1e" font-family="Plus Jakarta Sans" font-size="13"
+                        font-weight="600" text-anchor="middle">Valid Digits for Base?</text>
+
+                      <!-- NO PATH -->
+                      <line x1="200" y1="250" x2="100" y2="250" stroke="#ef4444" stroke-width="2"
+                        marker-end="url(#arrow)" />
+                      <text x="150" y="240" fill="#ef4444" font-family="Plus Jakarta Sans" font-size="12"
+                        font-weight="700">NO</text>
+                      <rect x="10" y="225" width="90" height="50" rx="8" fill="#fee2e2" stroke="#ef4444"
+                        stroke-width="1.5" />
+                      <text x="55" y="255" fill="#991b1b" font-family="Plus Jakarta Sans" font-size="12"
+                        font-weight="700" text-anchor="middle">Show Error</text>
+                      <path d="M 55 225 L 55 135 L 175 135" fill="none" stroke="#ef4444" stroke-width="1.5"
+                        stroke-dasharray="4" marker-end="url(#arrow)" />
+
+                      <!-- YES PATH -->
+                      <line x1="330" y1="300" x2="330" y2="340" stroke="#16a34a" stroke-width="2"
+                        marker-end="url(#arrow)" />
+                      <text x="340" y="325" fill="#16a34a" font-family="Plus Jakarta Sans" font-size="12"
+                        font-weight="700">YES</text>
+
+                      <!-- PROCESS 1: Individual Base Conversions -->
+                      <rect x="200" y="340" width="260" height="55" rx="12" fill="#ffffff" stroke="#0284c7"
+                        stroke-width="2" />
+                      <text x="330" y="362" fill="#181b1e" font-family="Plus Jakarta Sans" font-size="13"
+                        font-weight="700" text-anchor="middle">Convert Each Input to</text>
+                      <text x="330" y="380" fill="#0284c7" font-family="Fira Code" font-size="12" font-weight="600"
+                        text-anchor="middle">Binary, Octal, Decimal, Hex</text>
+                      <line x1="330" y1="395" x2="330" y2="435" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+
+                      <!-- PROCESS 2: Base 10 Normalization -->
+                      <rect x="200" y="435" width="260" height="55" rx="12" fill="#ffffff" stroke="#7c3aed"
+                        stroke-width="2" />
+                      <text x="330" y="457" fill="#181b1e" font-family="Plus Jakarta Sans" font-size="13"
+                        font-weight="700" text-anchor="middle">Normalize All Values to</text>
+                      <text x="330" y="475" fill="#7c3aed" font-family="Fira Code" font-size="12" font-weight="600"
+                        text-anchor="middle">Common Base 10 (Decimal)</text>
+                      <line x1="330" y1="490" x2="330" y2="530" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+
+                      <!-- PROCESS 3: Execute Selected Operation -->
+                      <rect x="200" y="530" width="260" height="55" rx="12" fill="#ffffff" stroke="#1e2124"
+                        stroke-width="2" />
+                      <text x="330" y="552" fill="#181b1e" font-family="Plus Jakarta Sans" font-size="13"
+                        font-weight="700" text-anchor="middle">Execute Selected Arithmetic</text>
+                      <text x="330" y="570" fill="#4b5563" font-family="Fira Code" font-size="12" font-weight="600"
+                        text-anchor="middle">Addition / Sub / Mult / Div</text>
+                      <line x1="330" y1="585" x2="330" y2="625" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+
+                      <!-- OUTPUT -->
+                      <polygon points="210,630 490,630 450,680 170,680" fill="#ecfccb" stroke="#65a30d"
+                        stroke-width="2" />
+                      <text x="330" y="655" fill="#1a2e05" font-family="Plus Jakarta Sans" font-size="13"
+                        font-weight="700" text-anchor="middle">Display Subscript Expression & Results</text>
+                      <line x1="330" y1="680" x2="330" y2="720" stroke="#64748b" stroke-width="2"
+                        marker-end="url(#arrow)" />
+
+                      <!-- END -->
+                      <rect x="250" y="720" width="200" height="45" rx="22.5" fill="#1e2124" />
+                      <text x="350" y="748" fill="#ffffff" font-family="Outfit" font-size="16" font-weight="700"
+                        text-anchor="middle">END</text>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==========================================================================
+           TAB 5: PROGRAM IMPLEMENTATION
+           ========================================================================== -->
+            <div id="tab-implementation" class="tab-panel">
+              <div class="white-card">
+                <div class="doc-section">
+                  <h2 class="doc-h2">4. Program Implementation & Architecture</h2>
+                  <p class="doc-p">
+                    The application is implemented in clean modular JavaScript (ES6+), Vanilla CSS3, and HTML5 using
+                    event-driven reactive DOM updates.
+                  </p>
+
+                  <h3 class="doc-h3">Data Structures</h3>
+                  <div class="code-block">
+                    // Input Object Representation
+                    const inputModel = {
+                    id: "input-1",
+                    rawString: "1010.1",
+                    base: 2, // 2, 8, 10, or 16
+                    isValid: true,
+                    decimalVal: 10.5
+                    };
+
+                    // Arithmetic Evaluation Pipeline
+                    const arithmeticResult = {
+                    expressionStr: "1010.1â‚‚ + 17â‚ˆ + 15â‚â‚€",
+                    operation: "+",
+                    decimalResult: 40.5,
+                    converted: {
+                    binary: "101000.1",
+                    octal: "50.4",
+                    decimal: "40.5",
+                    hexadecimal: "28.8"
+                    }
+                    };
+                  </div>
+
+                  <h3 class="doc-h3">Core Code Modules</h3>
+                  <p class="doc-p">
+                    â€¢ <code>validateBaseInput(str, base)</code>: Uses RegExp pattern matching matching
+                    <code>^[0-1]+$</code>
+                    (Bin), <code>^[0-7]+$</code> (Oct), <code>^[0-9]+$</code> (Dec), and <code>^[0-9A-Fa-f]+$</code>
+                    (Hex).<br>
+                    â€¢ <code>convertToDecimal(str, base)</code>: Evaluates integer summation \(\sum d_i \cdot b^i\) and
+                    fraction summation \(\sum d_j \cdot b^{-j}\).<br>
+                    â€¢ <code>convertFromDecimal(val, targetBase)</code>: Repeated division for integer part and radix
+                    multiplication for fractional part.<br>
+                    â€¢ <code>evaluateExpression(inputs, operation)</code>: Performs sequential left-to-right evaluation
+                    across input decimal values.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==========================================================================
+           TAB 6: TEST CASES & PRESETS
+           ========================================================================== -->
+            <div id="tab-presets" class="tab-panel">
+              <div class="white-card">
+                <div class="card-top-header">
+                  <div class="card-title-group">
+                    <div class="card-icon-badge"><i class="fa-solid fa-vial-circle-check"></i></div>
+                    <h2 class="card-title">Pre-Configured Test Cases</h2>
+                  </div>
+                </div>
+
+                <p class="card-helper">
+                  Click any preset button below to load required multi-base combination test cases directly into the
+                  active
+                  workbench:
+                </p>
+
+                <div class="preset-grid">
+
+                  <!-- Test Combo 1 -->
+                  <div class="preset-card">
+                    <div>
+                      <span class="preset-tag">Combination 1</span>
+                      <h3 class="preset-name">(A + B - C) * D (Parentheses)</h3>
+                      <p class="preset-desc">Evaluates parenthesized addition and subtraction multiplied by Base 16.</p>
+                      <div class="preset-inputs">Expr: (A + B - C) * D | Inputs: A=1010â‚‚, B=17â‚ˆ, C=5â‚â‚€,
+                        D=2â‚â‚†</div>
+                    </div>
+                    <button class="btn btn-primary btn-sm btn-load-preset" data-preset="combo1">
+                      <i class="fa-solid fa-play"></i> Run Test Case
+                    </button>
+                  </div>
+
+                  <!-- Test Combo 2 -->
+                  <div class="preset-card">
+                    <div>
+                      <span class="preset-tag">Combination 2</span>
+                      <h3 class="preset-name">A + B * C - D (Precedence Test)</h3>
+                      <p class="preset-desc">Demonstrates PEMDAS/BODMAS precedence: B * C is evaluated before addition.
+                      </p>
+                      <div class="preset-inputs">Expr: A + B * C - D | Inputs: A=10â‚â‚€, B=1100â‚‚, C=5â‚â‚€, D=20â‚ˆ
+                      </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm btn-load-preset" data-preset="combo2">
+                      <i class="fa-solid fa-play"></i> Run Test Case
+                    </button>
+                  </div>
+
+                  <!-- Test Combo 3 -->
+                  <div class="preset-card">
+                    <div>
+                      <span class="preset-tag">Combination 3</span>
+                      <h3 class="preset-name">((A + B) * C) / D (Nested)</h3>
+                      <p class="preset-desc">Nested parentheses evaluation with multi-base operands.</p>
+                      <div class="preset-inputs">Expr: ((A + B) * C) / D | Inputs: A=100â‚ˆ, B=14â‚â‚€, C=2â‚â‚€,
+                        D=4â‚â‚†</div>
+                    </div>
+                    <button class="btn btn-primary btn-sm btn-load-preset" data-preset="combo3">
+                      <i class="fa-solid fa-play"></i> Run Test Case
+                    </button>
+                  </div>
+
+                  <!-- Test Combo 4 -->
+                  <div class="preset-card">
+                    <div>
+                      <span class="preset-tag" style="background:#fee2e2; color:#b91c1c;">Error Test: Div By Zero</span>
+                      <h3 class="preset-name">A / (B - C) (Zero Division)</h3>
+                      <p class="preset-desc">Tests runtime arithmetic error trapping when denominator evaluates to zero.
+                      </p>
+                      <div class="preset-inputs">Expr: A / (B - C) | Inputs: A=1000â‚‚ (8), B=10â‚â‚€ (10), C=12â‚ˆ
+                        (10)</div>
+                    </div>
+                    <button class="btn btn-danger btn-sm btn-load-preset" data-preset="combo4">
+                      <i class="fa-solid fa-triangle-exclamation"></i> Trigger Error
+                    </button>
+                  </div>
+
+                  <!-- Test Combo 5 -->
+                  <div class="preset-card">
+                    <div>
+                      <span class="preset-tag" style="background:#fee2e2; color:#b91c1c;">Syntax Error Test</span>
+                      <h3 class="preset-name">(A + B * C (Unmatched Paren)</h3>
+                      <p class="preset-desc">Tests syntax error trapping when closing parenthesis is omitted.</p>
+                      <div class="preset-inputs">Expr: (A + B * C | Inputs: A=1010â‚‚, B=5â‚â‚€, C=2â‚â‚†</div>
+                    </div>
+                    <button class="btn btn-danger btn-sm btn-load-preset" data-preset="mismatch">
+                      <i class="fa-solid fa-bug"></i> Test Syntax Error
+                    </button>
+                  </div>
+
+                  <!-- Fractional Test Case -->
+                  <div class="preset-card">
+                    <div>
+                      <span class="preset-tag">Fractional Test</span>
+                      <h3 class="preset-name">(A + B) * C (Floating Radix)</h3>
+                      <p class="preset-desc">Parenthesized operations containing fractional radix numbers.</p>
+                      <div class="preset-inputs">Expr: (A + B) * C | Inputs: A=1010.1â‚‚, B=12.4â‚ˆ, C=2â‚â‚€</div>
+                    </div>
+                    <button class="btn btn-accent btn-sm btn-load-preset" data-preset="fractional">
+                      <i class="fa-solid fa-play"></i> Run Test Case
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- ==========================================================================
+           BOTTOM FLOATING CAPSULE DOCK (Matching Bottom Capsule Scrubber in Image)
+           ========================================================================== -->
+            <footer class="bottom-dock-container">
+              <div class="capsule-dock">
+                <div class="dock-badge-date">
+                  <i class="fa-solid fa-calculator"></i> Presets
+                </div>
+
+                <div class="dock-presets-group">
+                  <button class="dock-preset-chip btn-load-preset" data-preset="combo1" title="(A + B - C) * D">
+                    <span>(A+B-C)*D</span> <span class="dock-notification-dot">4</span>
+                  </button>
+                  <button class="dock-preset-chip btn-load-preset" data-preset="combo2" title="A + B * C - D">
+                    <span>A+B*C-D</span> <span class="dock-notification-dot">4</span>
+                  </button>
+                  <button class="dock-preset-chip btn-load-preset" data-preset="combo3" title="((A + B) * C) / D">
+                    <span>((A+B)*C)/D</span> <span class="dock-notification-dot">4</span>
+                  </button>
+                  <button class="dock-preset-chip btn-load-preset" data-preset="combo4" title="Division by Zero Error">
+                    <span>A/(B-C) Error</span> <span class="dock-notification-dot"
+                      style="background:#ef4444; color:#fff;">!</span>
+                  </button>
+                  <button class="dock-preset-chip btn-load-preset" data-preset="fractional" title="Fractional Test">
+                    <span>(A+B)*C Frac</span> <span class="dock-notification-dot">3</span>
+                  </button>
+                </div>
+
+                <!-- Dark Segment of the Capsule -->
+                <div class="dock-dark-segment">
+                  <button class="dock-dark-btn" id="dock-btn-calc" title="Run Calculation">
+                    <i class="fa-solid fa-bolt"></i> Compute
+                  </button>
+                </div>
+              </div>
+            </footer>
+
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- TAB 4: SYSTEM FLOWCHART -->
-    <div id="tab-flowchart" class="tab-panel">
-      <div class="glass-card">
-        <div class="doc-section">
-          <h2 class="doc-h2">3. System Flowchart Diagram</h2>
-          <p class="doc-p">
-            High-level control flow diagram of the Number System Converter and Calculator pipeline:
-          </p>
-
-          <div class="flowchart-wrapper">
-            <svg class="flowchart-svg" width="700" height="780" viewBox="0 0 700 780" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="flowGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#6366f1"/>
-                  <stop offset="100%" stop-color="#a855f7"/>
-                </linearGradient>
-                <linearGradient id="flowGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#06b6d4"/>
-                  <stop offset="100%" stop-color="#0284c7"/>
-                </linearGradient>
-                <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#a5b4fc" />
-                </marker>
-              </defs>
-
-              <!-- Flowchart Nodes -->
-              <!-- START -->
-              <rect x="250" y="20" width="200" height="45" rx="22.5" fill="url(#flowGrad1)" />
-              <text x="350" y="48" fill="#fff" font-family="Outfit" font-size="16" font-weight="700" text-anchor="middle">START</text>
-              <line x1="350" y1="65" x2="350" y2="105" stroke="#a5b4fc" stroke-width="2" marker-end="url(#arrow)"/>
-
-              <!-- INPUT -->
-              <polygon points="210,110 490,110 450,160 170,160" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
-              <text x="330" y="140" fill="#fff" font-family="Inter" font-size="14" text-anchor="middle">User Specifies N Inputs & Bases</text>
-              <line x1="330" y1="160" x2="330" y2="200" stroke="#a5b4fc" stroke-width="2" marker-end="url(#arrow)"/>
-
-              <!-- VALIDATION DECISION -->
-              <polygon points="330,200 460,250 330,300 200,250" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
-              <text x="330" y="255" fill="#fff" font-family="Inter" font-size="13" text-anchor="middle">Valid Digits for Base?</text>
-              
-              <!-- NO PATH -->
-              <line x1="200" y1="250" x2="100" y2="250" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
-              <text x="150" y="240" fill="#ef4444" font-family="Inter" font-size="12">NO</text>
-              <rect x="10" y="225" width="90" height="50" rx="8" fill="#451a1a" stroke="#ef4444" stroke-width="1.5"/>
-              <text x="55" y="255" fill="#fca5a5" font-family="Inter" font-size="12" text-anchor="middle">Show Error</text>
-              <path d="M 55 225 L 55 135 L 175 135" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4" marker-end="url(#arrow)"/>
-
-              <!-- YES PATH -->
-              <line x1="330" y1="300" x2="330" y2="340" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
-              <text x="340" y="325" fill="#10b981" font-family="Inter" font-size="12">YES</text>
-
-              <!-- PROCESS 1: Individual Base Conversions -->
-              <rect x="200" y="340" width="260" height="55" rx="10" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/>
-              <text x="330" y="362" fill="#fff" font-family="Inter" font-size="13" font-weight="600" text-anchor="middle">Convert Each Input to</text>
-              <text x="330" y="380" fill="#38bdf8" font-family="Fira Code" font-size="12" text-anchor="middle">Binary, Octal, Decimal, Hex</text>
-              <line x1="330" y1="395" x2="330" y2="435" stroke="#a5b4fc" stroke-width="2" marker-end="url(#arrow)"/>
-
-              <!-- PROCESS 2: Base 10 Normalization -->
-              <rect x="200" y="435" width="260" height="55" rx="10" fill="#1e293b" stroke="#a855f7" stroke-width="2"/>
-              <text x="330" y="457" fill="#fff" font-family="Inter" font-size="13" font-weight="600" text-anchor="middle">Normalize All Values to</text>
-              <text x="330" y="475" fill="#c084fc" font-family="Fira Code" font-size="12" text-anchor="middle">Common Base 10 (Decimal)</text>
-              <line x1="330" y1="490" x2="330" y2="530" stroke="#a5b4fc" stroke-width="2" marker-end="url(#arrow)"/>
-
-              <!-- PROCESS 3: Execute Selected Operation -->
-              <rect x="200" y="530" width="260" height="55" rx="10" fill="#1e293b" stroke="#6366f1" stroke-width="2"/>
-              <text x="330" y="552" fill="#fff" font-family="Inter" font-size="13" font-weight="600" text-anchor="middle">Execute Selected Arithmetic</text>
-              <text x="330" y="570" fill="#a5b4fc" font-family="Fira Code" font-size="12" text-anchor="middle">Addition / Sub / Mult / Div</text>
-              <line x1="330" y1="585" x2="330" y2="625" stroke="#a5b4fc" stroke-width="2" marker-end="url(#arrow)"/>
-
-              <!-- OUTPUT -->
-              <polygon points="210,630 490,630 450,680 170,680" fill="url(#flowGrad2)" />
-              <text x="330" y="655" fill="#fff" font-family="Inter" font-size="13" font-weight="700" text-anchor="middle">Display Subscript Expression & Results</text>
-              <line x1="330" y1="680" x2="330" y2="720" stroke="#a5b4fc" stroke-width="2" marker-end="url(#arrow)"/>
-
-              <!-- END -->
-              <rect x="250" y="720" width="200" height="45" rx="22.5" fill="url(#flowGrad1)" />
-              <text x="350" y="748" fill="#fff" font-family="Outfit" font-size="16" font-weight="700" text-anchor="middle">END</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 5: PROGRAM IMPLEMENTATION -->
-    <div id="tab-implementation" class="tab-panel">
-      <div class="glass-card">
-        <div class="doc-section">
-          <h2 class="doc-h2">4. Program Implementation & Architecture</h2>
-          <p class="doc-p">
-            The application is implemented in clean modular JavaScript (ES6+), Vanilla CSS3, and HTML5 using event-driven reactive DOM updates.
-          </p>
-
-          <h3 class="doc-h3">Data Structures</h3>
-          <div class="code-block">
-// Input Object Representation
-const inputModel = {
-  id: "input-1",
-  rawString: "1010.1",
-  base: 2,           // 2, 8, 10, or 16
-  isValid: true,
-  decimalVal: 10.5
-};
-
-// Arithmetic Evaluation Pipeline
-const arithmeticResult = {
-  expressionStr: "1010.1₂ + 17₈ + 15₁₀",
-  operation: "+",
-  decimalResult: 40.5,
-  converted: {
-    binary: "101000.1",
-    octal: "50.4",
-    decimal: "40.5",
-    hexadecimal: "28.8"
-  }
-};
-          </div>
-
-          <h3 class="doc-h3">Core Code Modules</h3>
-          <p class="doc-p">
-            • <code>validateBaseInput(str, base)</code>: Uses RegExp pattern matching matching <code>^[0-1]+$</code> (Bin), <code>^[0-7]+$</code> (Oct), <code>^[0-9]+$</code> (Dec), and <code>^[0-9A-Fa-f]+$</code> (Hex).<br>
-            • <code>convertToDecimal(str, base)</code>: Evaluates integer summation \(\sum d_i \cdot b^i\) and fraction summation \(\sum d_j \cdot b^{-j}\).<br>
-            • <code>convertFromDecimal(val, targetBase)</code>: Repeated division for integer part and radix multiplication for fractional part.<br>
-            • <code>evaluateExpression(inputs, operation)</code>: Performs sequential left-to-right evaluation across input decimal values.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 6: TEST CASES & PRESETS -->
-    <div id="tab-presets" class="tab-panel">
-      <div class="glass-card">
-        <div class="card-header">
-          <h2 class="card-title">
-            <i class="fa-solid fa-vial-circle-check"></i> Pre-Configured Test Cases
-          </h2>
-          <button id="btn-print-report" class="btn btn-accent btn-sm">
-            <i class="fa-solid fa-print"></i> Print / Export Report
-          </button>
-        </div>
-
-        <p class="doc-p">
-          Click any preset button below to load required multi-base combination test cases directly into the active workbench:
-        </p>
-
-        <div class="preset-grid">
-          
-          <!-- Test Combo 1 -->
-          <div class="preset-card">
-            <div>
-              <span class="preset-tag">Combination 1</span>
-              <h3 class="preset-name">Binary + Octal + Decimal</h3>
-              <p class="preset-desc">Addition of Base 2, Base 8, and Base 10 inputs.</p>
-              <div class="preset-inputs">Inputs: 1010₂ (10) + 17₈ (15) + 25₁₀ (25)</div>
-            </div>
-            <button class="btn btn-primary btn-sm btn-load-preset" data-preset="combo1">
-              <i class="fa-solid fa-play"></i> Run Test Case
-            </button>
-          </div>
-
-          <!-- Test Combo 2 -->
-          <div class="preset-card">
-            <div>
-              <span class="preset-tag">Combination 2</span>
-              <h3 class="preset-name">Binary + Decimal + Hexadecimal</h3>
-              <p class="preset-desc">Multiplication of Base 2, Base 10, and Base 16 inputs.</p>
-              <div class="preset-inputs">Inputs: 1100₂ (12) * 5₁₀ (5) * 2A₁₆ (42)</div>
-            </div>
-            <button class="btn btn-primary btn-sm btn-load-preset" data-preset="combo2">
-              <i class="fa-solid fa-play"></i> Run Test Case
-            </button>
-          </div>
-
-          <!-- Test Combo 3 -->
-          <div class="preset-card">
-            <div>
-              <span class="preset-tag">Combination 3</span>
-              <h3 class="preset-name">Octal + Decimal + Hexadecimal</h3>
-              <p class="preset-desc">Subtraction of Base 8, Base 10, and Base 16 inputs.</p>
-              <div class="preset-inputs">Inputs: 100₈ (64) − 14₁₀ (14) − 1F₁₆ (31)</div>
-            </div>
-            <button class="btn btn-primary btn-sm btn-load-preset" data-preset="combo3">
-              <i class="fa-solid fa-play"></i> Run Test Case
-            </button>
-          </div>
-
-          <!-- Test Combo 4 -->
-          <div class="preset-card">
-            <div>
-              <span class="preset-tag">Combination 4</span>
-              <h3 class="preset-name">Binary + Octal + Hexadecimal</h3>
-              <p class="preset-desc">Division of Base 2, Base 8, and Base 16 inputs.</p>
-              <div class="preset-inputs">Inputs: 1000000₂ (64) ÷ 20₈ (16) ÷ 2₁₆ (2)</div>
-            </div>
-            <button class="btn btn-primary btn-sm btn-load-preset" data-preset="combo4">
-              <i class="fa-solid fa-play"></i> Run Test Case
-            </button>
-          </div>
-
-          <!-- Fractional Test Case -->
-          <div class="preset-card">
-            <div>
-              <span class="preset-tag">Fractional Test</span>
-              <h3 class="preset-name">Mixed Floating-Point Numbers</h3>
-              <p class="preset-desc">Operations containing fractional radix values.</p>
-              <div class="preset-inputs">Inputs: 1010.1₂ (10.5) + 12.4₈ (10.5) + 3A.8₁₆ (58.5)</div>
-            </div>
-            <button class="btn btn-accent btn-sm btn-load-preset" data-preset="fractional">
-              <i class="fa-solid fa-play"></i> Run Test Case
-            </button>
-          </div>
-
-          <!-- 4-Input Test Case -->
-          <div class="preset-card">
-            <div>
-              <span class="preset-tag">4-Input Test</span>
-              <h3 class="preset-name">Quad Base All-In-One</h3>
-              <p class="preset-desc">4 input numbers featuring all four bases simultaneously.</p>
-              <div class="preset-inputs">Inputs: 1111₂ + 77₈ + 100₁₀ + 0xFF₁₆</div>
-            </div>
-            <button class="btn btn-accent btn-sm btn-load-preset" data-preset="quad">
-              <i class="fa-solid fa-play"></i> Run Test Case
-            </button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
+
 </html>
