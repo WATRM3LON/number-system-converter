@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- State Variables ---
   let inputRowsCount = 0;
+  let complementSelectorsInitialized = false;
 
   // --- Preset Data Definitions with Expressions ---
   const PRESETS = {
@@ -92,6 +93,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const keypadVarsContainer = document.getElementById("keypad-vars");
   const errorBanner = document.getElementById("expression-error-banner");
   const errorMsgEl = document.getElementById("expression-error-msg");
+  const complementWidthSelect = document.getElementById("complement-width");
+  const complementMinuendSelect = document.getElementById("complement-minuend");
+  const complementSubtrahendSelect = document.getElementById(
+    "complement-subtrahend",
+  );
+  const complementSubtractionButton = document.getElementById(
+    "btn-complement-subtract",
+  );
+  const complementResult = document.getElementById(
+    "complement-subtraction-result",
+  );
   const tabButtons = document.querySelectorAll(".tab-btn");
   const tabPanels = document.querySelectorAll(".tab-panel");
 
@@ -644,6 +656,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Refresh Keypad Variable Buttons
     refreshKeypadVariableButtons();
+    refreshComplementSelectors();
   }
 
   function refreshKeypadVariableButtons() {
@@ -697,6 +710,188 @@ document.addEventListener("DOMContentLoaded", () => {
     calculateAndRender();
   }
 
+  function normalizeToBitWidth(value, bitWidth) {
+    const modulus = 2 ** bitWidth;
+    return ((value % modulus) + modulus) % modulus;
+  }
+
+  function getComplementRepresentation(decimalValue, bitWidth) {
+    if (!Number.isSafeInteger(decimalValue)) return null;
+
+    const modulus = 2 ** bitWidth;
+    const normalizedValue = normalizeToBitWidth(decimalValue, bitWidth);
+    const sourceBits = normalizedValue.toString(2).padStart(bitWidth, "0");
+    const onesValue = modulus - 1 - normalizedValue;
+    const twosValue = (modulus - normalizedValue) % modulus;
+
+    return {
+      width: bitWidth,
+      sourceBits,
+      onesBits: onesValue.toString(2).padStart(bitWidth, "0"),
+      twosBits: twosValue.toString(2).padStart(bitWidth, "0"),
+      onesValue,
+      twosValue,
+    };
+  }
+
+  function formatComplementBases(representation, valueKey, bitsKey) {
+    const value = representation[valueKey];
+    return {
+      binary: representation[bitsKey],
+      octal: convertFromDecimal(value, 8),
+      decimal: value.toString(),
+      hexadecimal: convertFromDecimal(value, 16),
+    };
+  }
+
+  function complementCellMarkup(values) {
+    return `<div class="complement-cell">
+      <span><strong>Bin</strong>${values.binary}</span>
+      <span><strong>Oct</strong>${values.octal}</span>
+      <span><strong>Dec</strong>${values.decimal}</span>
+      <span><strong>Hex</strong>${values.hexadecimal}</span>
+    </div>`;
+  }
+
+  function refreshComplementSelectors() {
+    if (!complementMinuendSelect || !complementSubtrahendSelect) return;
+
+    const rows = inputsContainer.querySelectorAll(".input-row");
+    const previousMinuend = complementMinuendSelect.value;
+    const previousSubtrahend = complementSubtrahendSelect.value;
+    const options = Array.from(rows).map((row, index) => {
+      const variable = VAR_LETTERS[index] || `V${index + 1}`;
+      const input = row.querySelector(".input-number").value.trim() || "0";
+      return `<option value="${variable}">${variable} (${input})</option>`;
+    });
+
+    complementMinuendSelect.innerHTML = options.join("");
+    complementSubtrahendSelect.innerHTML = options.join("");
+
+    if (options.length > 0) {
+      const optionValues = Array.from(complementMinuendSelect.options).map(
+        (option) => option.value,
+      );
+      if (!complementSelectorsInitialized && optionValues.length >= 2) {
+        complementMinuendSelect.value = optionValues[0];
+        complementSubtrahendSelect.value = optionValues[1];
+        complementSelectorsInitialized = true;
+      } else {
+        complementMinuendSelect.value = optionValues.includes(previousMinuend)
+          ? previousMinuend
+          : optionValues[0];
+        complementSubtrahendSelect.value = optionValues.includes(
+          previousSubtrahend,
+        )
+          ? previousSubtrahend
+          : optionValues[Math.min(1, optionValues.length - 1)];
+      }
+    }
+  }
+
+  function renderComplementMatrix(inputsData, bitWidth) {
+    const tbody = document.getElementById("complement-matrix-tbody");
+    if (!tbody) return;
+
+    tbody.innerHTML = "";
+    inputsData.forEach((data) => {
+      const representation = data.rawStr
+        ? getComplementRepresentation(data.decimalVal, bitWidth)
+        : null;
+      const row = document.createElement("tr");
+
+      if (!representation) {
+        row.innerHTML = `
+          <td><strong>${data.label}</strong></td>
+          <td>${data.rawStr || "0"}<span class="subscript">${BASE_SUBSCRIPTS[data.base]}</span></td>
+          <td colspan="2">Available for whole-number inputs only</td>`;
+      } else {
+        const ones = formatComplementBases(
+          representation,
+          "onesValue",
+          "onesBits",
+        );
+        const twos = formatComplementBases(
+          representation,
+          "twosValue",
+          "twosBits",
+        );
+        row.innerHTML = `
+          <td><strong>${data.label}</strong></td>
+          <td>${data.rawStr}<span class="subscript">${BASE_SUBSCRIPTS[data.base]}</span><br><small>${bitWidth}-bit source: ${representation.sourceBits}</small></td>
+          <td>${complementCellMarkup(ones)}</td>
+          <td>${complementCellMarkup(twos)}</td>`;
+      }
+
+      tbody.appendChild(row);
+    });
+  }
+
+  function decodeComplementValue(value, bitWidth, method) {
+    const signBit = 2 ** (bitWidth - 1);
+    if (value < signBit) return value;
+    if (method === "ones") return -(2 ** bitWidth - 1 - value);
+    return -(2 ** bitWidth - value);
+  }
+
+  function subtractionRepresentation(value, bitWidth, method) {
+    const bits = value.toString(2).padStart(bitWidth, "0");
+    return {
+      bits,
+      octal: convertFromDecimal(value, 8),
+      decimal: decodeComplementValue(value, bitWidth, method).toString(),
+      hexadecimal: convertFromDecimal(value, 16),
+    };
+  }
+
+  function renderComplementSubtraction(inputsData, bitWidth) {
+    if (
+      !complementResult ||
+      !complementMinuendSelect ||
+      !complementSubtrahendSelect
+    )
+      return;
+
+    const minuend = inputsData.find(
+      (data) => data.variable === complementMinuendSelect.value,
+    );
+    const subtrahend = inputsData.find(
+      (data) => data.variable === complementSubtrahendSelect.value,
+    );
+    if (
+      !minuend ||
+      !subtrahend ||
+      !Number.isSafeInteger(minuend.decimalVal) ||
+      !Number.isSafeInteger(subtrahend.decimalVal)
+    ) {
+      complementResult.textContent =
+        "Complement subtraction requires two whole-number inputs.";
+      return;
+    }
+
+    const modulus = 2 ** bitWidth;
+    const minuendValue = normalizeToBitWidth(minuend.decimalVal, bitWidth);
+    const subtrahendValue = normalizeToBitWidth(
+      subtrahend.decimalVal,
+      bitWidth,
+    );
+    const onesSubtrahend = modulus - 1 - subtrahendValue;
+    const onesRaw = minuendValue + onesSubtrahend;
+    const onesCarry = onesRaw >= modulus;
+    const onesResult = (onesRaw + (onesCarry ? 1 : 0)) % modulus;
+    const twosSubtrahend = (modulus - subtrahendValue) % modulus;
+    const twosRaw = minuendValue + twosSubtrahend;
+    const twosCarry = twosRaw >= modulus;
+    const twosResult = twosRaw % modulus;
+    const ones = subtractionRepresentation(onesResult, bitWidth, "ones");
+    const twos = subtractionRepresentation(twosResult, bitWidth, "twos");
+
+    complementResult.innerHTML = `
+      <strong>${minuend.variable} (${minuend.decimalVal}) − ${subtrahend.variable} (${subtrahend.decimalVal}) using ${bitWidth} bits</strong><br>
+      <strong>1's complement:</strong> ${minuendValue.toString(2).padStart(bitWidth, "0")} + ${onesSubtrahend.toString(2).padStart(bitWidth, "0")} ${onesCarry ? "→ end-around carry + 1" : "→ no end-around carry"} = <strong>${ones.bits}</strong>₂ | ${ones.octal}₈ | ${ones.decimal}₁₀ | ${ones.hexadecimal}₁₆<br>
+      <strong>2's complement:</strong> ${minuendValue.toString(2).padStart(bitWidth, "0")} + ${twosSubtrahend.toString(2).padStart(bitWidth, "0")} ${twosCarry ? "→ discard carry" : "→ no carry"} = <strong>${twos.bits}</strong>₂ | ${twos.octal}₈ | ${twos.decimal}₁₀ | ${twos.hexadecimal}₁₆`;
+  }
+
   // ==========================================================================
   // 4. MAIN ARITHMETIC CALCULATION & DOM RENDERING
   // ==========================================================================
@@ -735,6 +930,13 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       return;
     }
+
+    const complementBitWidth = complementWidthSelect
+      ? parseInt(complementWidthSelect.value, 10)
+      : 8;
+    refreshComplementSelectors();
+    renderComplementMatrix(inputsData, complementBitWidth);
+    renderComplementSubtraction(inputsData, complementBitWidth);
 
     const exprStr = customExprInput
       ? customExprInput.value.trim()
@@ -974,6 +1176,31 @@ document.addEventListener("DOMContentLoaded", () => {
         customExprInput.focus();
         calculateAndRender();
       }
+    });
+  }
+
+  if (complementWidthSelect) {
+    complementWidthSelect.addEventListener("change", () =>
+      calculateAndRender(),
+    );
+  }
+
+  if (complementMinuendSelect) {
+    complementMinuendSelect.addEventListener("change", () =>
+      calculateAndRender(),
+    );
+  }
+
+  if (complementSubtrahendSelect) {
+    complementSubtrahendSelect.addEventListener("change", () =>
+      calculateAndRender(),
+    );
+  }
+
+  if (complementSubtractionButton) {
+    complementSubtractionButton.addEventListener("click", () => {
+      calculateAndRender();
+      showToast("Complement subtraction evaluated.", "success");
     });
   }
 

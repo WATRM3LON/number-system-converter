@@ -1,15 +1,16 @@
 ﻿# Activity No. 1: System Development Activity
+
 ## Number System Converter and Arithmetic Calculator System
 
 A comprehensive, interactive web application and documentation system built for **System Development Activity No. 1**. This application performs multi-base number system conversions (Binary, Octal, Decimal, Hexadecimal) and evaluates multi-input arithmetic operations with step-by-step mathematical breakdowns.
 
 ---
 
-##  Key Features
+## Key Features
 
 1. **Dynamic Multi-Base Input Workbench**
    - Supports 3 or more dynamic input fields (Add/Remove inputs dynamically).
-   - Independent base selection for *each* input number: **Binary (Base 2)**, **Octal (Base 8)**, **Decimal (Base 10)**, and **Hexadecimal (Base 16)**.
+   - Independent base selection for _each_ input number: **Binary (Base 2)**, **Octal (Base 8)**, **Decimal (Base 10)**, and **Hexadecimal (Base 16)**.
    - Real-time digit validation per selected base (e.g., flags digits `2-9` in binary or `8-9` in octal).
    - Full support for both integer and fractional / floating-point numbers (e.g. `1010.11₂`, `17.4₈`, `3A.F₁₆`).
 
@@ -18,13 +19,18 @@ A comprehensive, interactive web application and documentation system built for 
    - Step-by-step mathematical expansion visualizer (showing positional integer powers and radix fraction multiplications).
 
 3. **Mixed-Base Arithmetic Calculator**
-   - Supports **Addition (+)**, **Subtraction (-)**, **Multiplication (*)**, and **Division (/)**.
+   - Supports **Addition (+)**, **Subtraction (-)**, **Multiplication (\*)**, and **Division (/)**.
    - Converts input values into a common Base-10 representation before evaluation.
    - Displays the formatted arithmetic expression using original input symbols and base subscripts (e.g., `1010.1₂ + 17₈ * 3A.F₁₆`).
    - Outputs the final calculation result in **Binary**, **Octal**, **Decimal**, and **Hexadecimal**.
    - Detailed calculation breakdown log showing intermediate decimal steps and final back-conversions.
 
-4. **Academic Documentation & Test Suite**
+4. **Complement Arithmetic Workbench**
+   - Displays fixed-width 1's and 2's complements for every supported number system representation.
+   - Converts complement bit patterns to Binary, Octal, Decimal, and Hexadecimal.
+   - Performs subtraction using both 1's-complement end-around-carry and 2's-complement discard-carry methods.
+
+5. **Academic Documentation & Test Suite**
    - **System Requirements**: Functional & non-functional requirements specification.
    - **Algorithm & Pseudocode**: Formal algorithms for input validation, base conversion, and multi-operand arithmetic.
    - **Flowchart Visualizer**: SVG diagram illustrating system workflow and decision logic.
@@ -40,35 +46,35 @@ A comprehensive, interactive web application and documentation system built for 
 
 #### Runtime & Technologies
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| **HTML5** | — | Application markup and structure |
-| **CSS3** | — | Glassmorphic dark-theme styling, CSS Variables, Responsive Grid |
-| **JavaScript** | — | Conversion algorithms, expression engine, dynamic UI |
-| **Font Awesome** | — | UI icons (loaded via CDN) |
+| Technology       | Version | Purpose                                                         |
+| ---------------- | ------- | --------------------------------------------------------------- |
+| **HTML5**        | —       | Application markup and structure                                |
+| **CSS3**         | —       | Glassmorphic dark-theme styling, CSS Variables, Responsive Grid |
+| **JavaScript**   | —       | Conversion algorithms, expression engine, dynamic UI            |
+| **Font Awesome** | —       | UI icons (loaded via CDN)                                       |
 
 ---
 
 ### Functional Requirements
 
-| ID | Requirement | Description | Status |
-|----|------------|-------------|--------|
-| FR-01 | Dynamic Input Control | Accept at least 3 input numbers with the ability to add or remove inputs dynamically. | ✅ Implemented |
-| FR-02 | Multi-Base Selection | Allow independent base selection per input: Binary, Octal, Decimal, Hexadecimal. | ✅ Implemented |
-| FR-03 | Input Validation | Validate digits of each input against its selected base (e.g., reject digits `8`/`9` in Octal). | ✅ Implemented |
-| FR-04 | Individual Conversions | Convert each input number to all 4 bases (Binary, Octal, Decimal, Hexadecimal). | ✅ Implemented |
-| FR-05 | Mixed-Base Arithmetic | Perform `+`, `-`, `*`, `/` operations across inputs of different number bases. | ✅ Implemented |
-| FR-06 | Common Representation | Normalize all inputs to Base-10 (Decimal) before executing arithmetic. | ✅ Implemented |
-| FR-07 | Expression Display | Render the arithmetic expression with original symbols and base subscript notation. | ✅ Implemented |
-| FR-08 | Multi-Base Results | Output the final result in Binary, Octal, Decimal, and Hexadecimal. | ✅ Implemented |
-| FR-09 | Parenthesized Expressions | Support arbitrary expressions with mixed operators and parentheses, e.g. `(A + B - C) * D`. | ✅ Implemented |
-| FR-10 | Operator Precedence | Enforce PEMDAS/BODMAS: `*` and `/` evaluated before `+` and `-`, with left-to-right associativity. | ✅ Implemented |
-| FR-11 | Error Trapping | Detect and report: division by zero, mismatched parentheses, illegal operator combinations, and undefined variables. | ✅ Implemented |
+| ID    | Requirement               | Description                                                                                                          | Status         |
+| ----- | ------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------- |
+| FR-01 | Dynamic Input Control     | Accept at least 3 input numbers with the ability to add or remove inputs dynamically.                                | ✅ Implemented |
+| FR-02 | Multi-Base Selection      | Allow independent base selection per input: Binary, Octal, Decimal, Hexadecimal.                                     | ✅ Implemented |
+| FR-03 | Input Validation          | Validate digits of each input against its selected base (e.g., reject digits `8`/`9` in Octal).                      | ✅ Implemented |
+| FR-04 | Individual Conversions    | Convert each input number to all 4 bases (Binary, Octal, Decimal, Hexadecimal).                                      | ✅ Implemented |
+| FR-05 | Mixed-Base Arithmetic     | Perform `+`, `-`, `*`, `/` operations across inputs of different number bases.                                       | ✅ Implemented |
+| FR-06 | Common Representation     | Normalize all inputs to Base-10 (Decimal) before executing arithmetic.                                               | ✅ Implemented |
+| FR-07 | Expression Display        | Render the arithmetic expression with original symbols and base subscript notation.                                  | ✅ Implemented |
+| FR-08 | Multi-Base Results        | Output the final result in Binary, Octal, Decimal, and Hexadecimal.                                                  | ✅ Implemented |
+| FR-09 | Parenthesized Expressions | Support arbitrary expressions with mixed operators and parentheses, e.g. `(A + B - C) * D`.                          | ✅ Implemented |
+| FR-10 | Operator Precedence       | Enforce PEMDAS/BODMAS: `*` and `/` evaluated before `+` and `-`, with left-to-right associativity.                   | ✅ Implemented |
+| FR-11 | Error Trapping            | Detect and report: division by zero, mismatched parentheses, illegal operator combinations, and undefined variables. | ✅ Implemented |
+| FR-12 | Complement Arithmetic     | Display 1's and 2's complements and perform fixed-width subtraction using both complement methods.                   | ✅ Implemented |
 
 ---
 
-
-##  How to Run
+## How to Run
 
 1. Clone or download the project folder:
    ```
@@ -80,7 +86,7 @@ A comprehensive, interactive web application and documentation system built for 
 
 ---
 
-##  Project Structure
+## Project Structure
 
 ```
 number-system-converter/
@@ -92,15 +98,17 @@ number-system-converter/
 
 ---
 
-##  Academic Activity Specifications Checklist
+## Academic Activity Specifications Checklist
 
 - [x] Accept at least 3 dynamic input numbers.
 - [x] Allow base selection for each input (Binary, Octal, Decimal, Hexadecimal).
 - [x] Validate inputs based on selected number system.
 - [x] Display individual conversion results for each input across all 4 bases.
-- [x] Support arithmetic operations: Addition (+), Subtraction (-), Multiplication (*), Division (/).
+- [x] Support arithmetic operations: Addition (+), Subtraction (-), Multiplication (\*), Division (/).
 - [x] Normalize values to common Base-10 before performing arithmetic.
 - [x] Display arithmetic expression using original inputs with base subscripts.
 - [x] Output final result in Binary, Octal, Decimal, and Hexadecimal.
+- [x] Display 1's and 2's complements in all four supported number systems.
+- [x] Perform subtraction using both 1's-complement and 2's-complement methods.
 - [x] Include System Requirements, Algorithm/Pseudocode, Flowchart, Program Implementation, Test Cases, and Sample Outputs.
-- [x] Test combinations of Binary+Octal+Decimal, Binary+Decimal+Hex, Octal+Decimal+Hex, Binary+Octal+Hex across +, -, *, /.
+- [x] Test combinations of Binary+Octal+Decimal, Binary+Decimal+Hex, Octal+Decimal+Hex, Binary+Octal+Hex across +, -, \*, /.

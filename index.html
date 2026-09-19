@@ -299,6 +299,78 @@
             </div>
           </div>
 
+          <!-- Complements & Complement-Based Subtraction -->
+          <div class="white-card complement-workbench">
+            <div class="card-top-header">
+              <div class="card-title-group">
+                <div class="card-icon-badge">
+                  <i class="fa-solid fa-code-branch"></i>
+                </div>
+                <h2 class="card-title">1's &amp; 2's Complements</h2>
+              </div>
+              <span class="base-tag">Fixed-width integer arithmetic</span>
+            </div>
+
+            <p class="card-helper">
+              Complements use the selected fixed bit width. Each input is
+              normalized to an integer bit pattern, then its 1's and 2's
+              complements are shown in Binary, Octal, Decimal, and Hexadecimal.
+              Fractional values are excluded from complement arithmetic.
+            </p>
+
+            <div class="complement-controls">
+              <label>
+                Bit width
+                <select id="complement-width" class="select-base">
+                  <option value="8" selected>8 bits</option>
+                  <option value="16">16 bits</option>
+                  <option value="32">32 bits</option>
+                </select>
+              </label>
+              <label>
+                Minuend (A)
+                <select id="complement-minuend" class="select-base"></select>
+              </label>
+              <label>
+                Subtrahend (B)
+                <select id="complement-subtrahend" class="select-base"></select>
+              </label>
+              <button id="btn-complement-subtract" class="btn btn-primary">
+                <i class="fa-solid fa-minus"></i> Subtract Using Complements
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table complement-table">
+                <thead>
+                  <tr>
+                    <th>Input</th>
+                    <th>Original</th>
+                    <th>
+                      1's Complement<br /><small
+                        >Binary / Octal / Decimal / Hex</small
+                      >
+                    </th>
+                    <th>
+                      2's Complement<br /><small
+                        >Binary / Octal / Decimal / Hex</small
+                      >
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="complement-matrix-tbody"></tbody>
+              </table>
+            </div>
+
+            <div
+              id="complement-subtraction-result"
+              class="complement-result"
+              aria-live="polite"
+            >
+              Choose two integer inputs to view complement-based subtraction.
+            </div>
+          </div>
+
           <!-- Individual Conversion Matrix Table -->
           <div class="white-card">
             <div class="card-top-header">
@@ -568,6 +640,25 @@
                         Detect and report runtime division by zero, mismatched
                         parentheses, illegal operator combinations, and
                         undefined variables.
+                      </td>
+                      <td>
+                        <span
+                          class="base-tag"
+                          style="
+                            background: #dcfce7;
+                            color: #15803d;
+                            font-weight: 700;
+                          "
+                          >Implemented</span
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>FR-12</td>
+                      <td>Complement Arithmetic</td>
+                      <td>
+                        Display 1's and 2's complements for all supported number
+                        systems and perform subtraction using both methods.
                       </td>
                       <td>
                         <span

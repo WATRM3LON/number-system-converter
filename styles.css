@@ -4,7 +4,7 @@
    Aesthetic inspired by Modern Scandinavian / HealthTech Dashboard
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 :root {
   /* Color Palette - Clean Studio White / Warm Bone-Grey / Crisp White / Deep Charcoal */
@@ -56,9 +56,9 @@
   --timeline-node-bg: #1e2124;
 
   /* Typography */
-  --font-heading: 'Outfit', 'Plus Jakarta Sans', -apple-system, sans-serif;
-  --font-body: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-heading: "Outfit", "Plus Jakarta Sans", -apple-system, sans-serif;
+  --font-body: "Plus Jakarta Sans", "Inter", -apple-system, sans-serif;
+  --font-mono: "Fira Code", monospace;
 
   /* Elevation & Curves */
   --radius-xs: 8px;
@@ -70,9 +70,11 @@
   --radius-pill: 9999px;
 
   --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.03);
-  --shadow-card: 0 4px 20px rgba(25, 30, 35, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-card:
+    0 4px 20px rgba(25, 30, 35, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
   --shadow-float: 0 12px 36px rgba(20, 25, 30, 0.12);
-  --shadow-tablet: 0 25px 80px rgba(25, 30, 35, 0.12), 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-tablet:
+    0 25px 80px rgba(25, 30, 35, 0.12), 0 10px 30px rgba(0, 0, 0, 0.08);
 
   --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
@@ -90,8 +92,16 @@
 body {
   background-color: var(--canvas-bg);
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
-    radial-gradient(circle at 85% 80%, rgba(220, 218, 210, 0.5) 0%, transparent 50%);
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(255, 255, 255, 0.9) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(220, 218, 210, 0.5) 0%,
+      transparent 50%
+    );
   color: var(--text-main);
   font-family: var(--font-body);
   line-height: 1.5;
@@ -303,7 +313,7 @@ body {
 }
 
 .profile-avatar-box::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   right: -2px;
@@ -346,7 +356,7 @@ body {
 }
 
 .profile-status::before {
-  content: '';
+  content: "";
   width: 6px;
   height: 6px;
   background: var(--accent-emerald);
@@ -878,6 +888,92 @@ body {
   color: var(--text-secondary);
 }
 
+/* Complement arithmetic workbench */
+.complement-workbench {
+  border-top: 3px solid var(--accent-yellow);
+}
+
+.complement-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  background: #f8f7f4;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.25rem;
+}
+
+.complement-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.complement-controls .select-base {
+  min-width: 145px;
+  text-transform: none;
+}
+
+.complement-table {
+  margin-bottom: 1.25rem;
+}
+
+.complement-table th small {
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.complement-cell {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 190px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+
+.complement-cell span strong {
+  color: var(--accent-dark);
+  display: inline-block;
+  min-width: 3.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.complement-result {
+  background: #f8f7f4;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.8;
+  padding: 1rem 1.15rem;
+}
+
+.complement-result strong {
+  color: var(--text-main);
+}
+
+@media (max-width: 760px) {
+  .complement-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .complement-controls .select-base,
+  .complement-controls .btn {
+    width: 100%;
+  }
+}
+
 /* Arithmetic Error Alert Banner */
 .error-alert-banner {
   display: none;
@@ -1067,13 +1163,17 @@ body {
 }
 
 .expression-banner::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-yellow) 0%, var(--accent-dark) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--accent-yellow) 0%,
+    var(--accent-dark) 100%
+  );
 }
 
 .expression-title {
