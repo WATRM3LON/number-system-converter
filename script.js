@@ -892,6 +892,128 @@ document.addEventListener("DOMContentLoaded", () => {
       <strong>2's complement:</strong> ${minuendValue.toString(2).padStart(bitWidth, "0")} + ${twosSubtrahend.toString(2).padStart(bitWidth, "0")} ${twosCarry ? "→ discard carry" : "→ no carry"} = <strong>${twos.bits}</strong>₂ | ${twos.octal}₈ | ${twos.decimal}₁₀ | ${twos.hexadecimal}₁₆`;
   }
 
+  function parseBcdInput(rawValue, label) {
+    const cleanValue = String(rawValue || "").trim();
+    if (!cleanValue) {
+      return {
+        isValid: false,
+        message: `${label} cannot be empty.`,
+      };
+    }
+
+    if (!/^\d+$/.test(cleanValue)) {
+      return {
+        isValid: false,
+        message: `${label} must contain only decimal digits 0 to 9.`,
+      };
+    }
+
+    const numericValue = Number(cleanValue);
+    if (!Number.isInteger(numericValue) || numericValue < 0) {
+      return {
+        isValid: false,
+        message: `${label} must be a non-negative whole number.`,
+      };
+    }
+
+    return {
+      isValid: true,
+      numericValue,
+      digits: cleanValue.split("").map((digit) => Number(digit)),
+    };
+  }
+
+  function padBcdDigits(digits, targetLength) {
+    const padded = [...digits];
+    while (padded.length < targetLength) {
+      padded.unshift(0);
+    }
+    return padded;
+  }
+
+  function decimalToBcdDigits(decimalValue, targetLength) {
+    const absoluteValue = Math.abs(Math.trunc(decimalValue));
+    const digitString = String(absoluteValue || 0);
+    const digits = digitString.split("").map((digit) => Number(digit));
+    return padBcdDigits(digits, targetLength);
+  }
+
+  function formatBcdBinary(digits) {
+    return digits
+      .map((digit) => digit.toString(2).padStart(4, "0"))
+      .join(" ");
+  }
+
+  function formatSignedBcd(digits, sign) {
+    const binary = formatBcdBinary(digits);
+    return `${sign === "-" ? "-" : ""}${binary}`;
+  }
+
+  function renderBcdWorkbench() {
+    const bcdAInput = document.getElementById("bcd-operand-a");
+    const bcdBInput = document.getElementById("bcd-operand-b");
+    const bcdResultEl = document.getElementById("bcd-result");
+
+    if (!bcdAInput || !bcdBInput || !bcdResultEl) return;
+
+    const aResult = parseBcdInput(bcdAInput.value, "Operand A");
+    const bResult = parseBcdInput(bcdBInput.value, "Operand B");
+
+    if (!aResult.isValid || !bResult.isValid) {
+      const msg = !aResult.isValid ? aResult.message : bResult.message;
+      bcdResultEl.textContent = msg;
+      return;
+    }
+
+    const width = Math.max(aResult.digits.length, bResult.digits.length);
+    const aDigits = padBcdDigits(aResult.digits, width);
+    const bDigits = padBcdDigits(bResult.digits, width);
+    const aValue = aResult.numericValue;
+    const bValue = bResult.numericValue;
+
+    const addValue = aValue + bValue;
+    const addDigits = decimalToBcdDigits(addValue, width + 1);
+
+    const ninesComplementValue = 10 ** width - 1 - bValue;
+    const subtract9Raw = aValue + ninesComplementValue + 1;
+    const subtract9Carry = subtract9Raw >= 10 ** width;
+    const subtract9Value = subtract9Carry
+      ? subtract9Raw - 10 ** width
+      : -(10 ** width - subtract9Raw);
+    const subtract9Digits = decimalToBcdDigits(
+      Math.abs(subtract9Value),
+      width,
+    );
+
+    const tensComplementValue = 10 ** width - bValue;
+    const subtract10Raw = aValue + tensComplementValue;
+    const subtract10Carry = subtract10Raw >= 10 ** width;
+    const subtract10Value = subtract10Carry
+      ? subtract10Raw - 10 ** width
+      : -(10 ** width - subtract10Raw);
+    const subtract10Digits = decimalToBcdDigits(
+      Math.abs(subtract10Value),
+      width,
+    );
+
+    bcdResultEl.innerHTML = `
+      <strong>BCD Addition</strong><br>
+      A = ${aValue} → ${formatBcdBinary(aDigits)}<br>
+      B = ${bValue} → ${formatBcdBinary(bDigits)}<br>
+      A + B = ${addValue} → ${formatBcdBinary(addDigits)}<br><br>
+
+      <strong>BCD Subtraction via 9's Complement</strong><br>
+      9's complement of B = ${ninesComplementValue} → ${formatBcdBinary(decimalToBcdDigits(ninesComplementValue, width))}<br>
+      A + (9's complement of B) + 1 = ${subtract9Raw} → ${subtract9Carry ? "carry detected; discard carry" : "no carry; take 10's complement"}<br>
+      Result = ${subtract9Value < 0 ? "-" : ""}${formatBcdBinary(subtract9Digits)} = ${subtract9Value}<br><br>
+
+      <strong>BCD Subtraction via 10's Complement</strong><br>
+      10's complement of B = ${tensComplementValue} → ${formatBcdBinary(decimalToBcdDigits(tensComplementValue, width))}<br>
+      A + (10's complement of B) = ${subtract10Raw} → ${subtract10Carry ? "discard carry" : "take 10's complement of the negative remainder"}<br>
+      Result = ${subtract10Value < 0 ? "-" : ""}${formatBcdBinary(subtract10Digits)} = ${subtract10Value}
+    `;
+  }
+
   // ==========================================================================
   // 4. MAIN ARITHMETIC CALCULATION & DOM RENDERING
   // ==========================================================================
@@ -1204,6 +1326,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  const bcdOperandA = document.getElementById("bcd-operand-a");
+  const bcdOperandB = document.getElementById("bcd-operand-b");
+  const bcdAddButton = document.getElementById("btn-bcd-add");
+  const bcdSubtract9Button = document.getElementById("btn-bcd-subtract-9");
+  const bcdSubtract10Button = document.getElementById("btn-bcd-subtract-10");
+
+  [bcdOperandA, bcdOperandB].forEach((input) => {
+    if (input) {
+      input.addEventListener("input", renderBcdWorkbench);
+    }
+  });
+
+  if (bcdAddButton) {
+    bcdAddButton.addEventListener("click", () => {
+      renderBcdWorkbench();
+      showToast("BCD addition evaluated.", "success");
+    });
+  }
+
+  if (bcdSubtract9Button) {
+    bcdSubtract9Button.addEventListener("click", () => {
+      renderBcdWorkbench();
+      showToast("BCD subtraction using 9's complement evaluated.", "success");
+    });
+  }
+
+  if (bcdSubtract10Button) {
+    bcdSubtract10Button.addEventListener("click", () => {
+      renderBcdWorkbench();
+      showToast("BCD subtraction using 10's complement evaluated.", "success");
+    });
+  }
+
   // Add Input Buttons
   if (btnAddInput) {
     btnAddInput.addEventListener("click", () => {
@@ -1316,4 +1471,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial Startup
   resetToDefaultInputs();
+  renderBcdWorkbench();
 });

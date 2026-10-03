@@ -30,7 +30,12 @@ A comprehensive, interactive web application and documentation system built for 
    - Converts complement bit patterns to Binary, Octal, Decimal, and Hexadecimal.
    - Performs subtraction using both 1's-complement end-around-carry and 2's-complement discard-carry methods.
 
-5. **Academic Documentation & Test Suite**
+5. **BCD Arithmetic Workbench**
+   - Adds and subtracts unsigned BCD numbers using decimal digit grouping.
+   - Shows the BCD nibble representation for each operand and result.
+   - Demonstrates subtraction using both 9's-complement and 10's-complement methods.
+
+6. **Academic Documentation & Test Suite**
    - **System Requirements**: Functional & non-functional requirements specification.
    - **Algorithm & Pseudocode**: Formal algorithms for input validation, base conversion, and multi-operand arithmetic.
    - **Flowchart Visualizer**: SVG diagram illustrating system workflow and decision logic.
@@ -71,6 +76,7 @@ A comprehensive, interactive web application and documentation system built for 
 | FR-10 | Operator Precedence       | Enforce PEMDAS/BODMAS: `*` and `/` evaluated before `+` and `-`, with left-to-right associativity.                   | ✅ Implemented |
 | FR-11 | Error Trapping            | Detect and report: division by zero, mismatched parentheses, illegal operator combinations, and undefined variables. | ✅ Implemented |
 | FR-12 | Complement Arithmetic     | Display 1's and 2's complements and perform fixed-width subtraction using both complement methods.                   | ✅ Implemented |
+| FR-13 | BCD Arithmetic            | Add and subtract unsigned BCD values, including both 9's-complement and 10's-complement subtraction methods.         | ✅ Implemented |
 
 ---
 
@@ -110,5 +116,6 @@ number-system-converter/
 - [x] Output final result in Binary, Octal, Decimal, and Hexadecimal.
 - [x] Display 1's and 2's complements in all four supported number systems.
 - [x] Perform subtraction using both 1's-complement and 2's-complement methods.
+- [x] Add and subtract unsigned BCD values using both 9's-complement and 10's-complement methods.
 - [x] Include System Requirements, Algorithm/Pseudocode, Flowchart, Program Implementation, Test Cases, and Sample Outputs.
 - [x] Test combinations of Binary+Octal+Decimal, Binary+Decimal+Hex, Octal+Decimal+Hex, Binary+Octal+Hex across +, -, \*, /.
